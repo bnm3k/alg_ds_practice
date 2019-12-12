@@ -4,7 +4,7 @@ import (
 	"container/list"
 )
 
-type payload struct {
+type payloadLRU struct {
 	value    int
 	lruEntry *list.Element
 }
@@ -13,7 +13,7 @@ type payload struct {
 //recently used value is evicted
 type LRUCache struct {
 	lruList  *list.List
-	kvStore  map[int]payload
+	kvStore  map[int]payloadLRU
 	capacity int
 }
 
@@ -25,7 +25,7 @@ func NewLRUCache(capacity int) LRUCache {
 	}
 	return LRUCache{
 		lruList:  list.New(),
-		kvStore:  make(map[int]payload),
+		kvStore:  make(map[int]payloadLRU),
 		capacity: capacity,
 	}
 }
